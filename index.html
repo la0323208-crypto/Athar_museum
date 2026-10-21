@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أثر | رحلة عبر الزمن</title>
+<style>
+:root {
+  --bg:#f7f2e9; --paper:#fffdf8; --ink:#30271f;
+  --brown:#725039; --gold:#b08b5b; --muted:#786d61;
+  --line:#e7dbca;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Tahoma,Arial,sans-serif;line-height:1.8
+}
+header{
+  padding:42px 20px 34px;text-align:center;color:white;
+  background:linear-gradient(130deg,#30251e,#725039,#a68a66)
+}
+.logo{font-size:48px;font-weight:900;letter-spacing:5px}
+header p{margin:5px 0;color:#f3e6d4}
+.wrap{max-width:1100px;margin:auto;padding:22px 16px}
+.intro{text-align:center;margin:12px auto 26px;max-width:650px}
+h2,h3{line-height:1.5}
+.section-title{font-size:23px;margin:18px 0 12px}
+.devices{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px
+}
+.device{
+  border:1px solid var(--line);background:var(--paper);
+  padding:17px 8px;border-radius:16px;cursor:pointer;
+  color:var(--ink);font:inherit;font-weight:bold;
+  transition:.2s;min-height:92px
+}
+.device:hover,.device.active{
+  border-color:var(--gold);background:#eaddc9;
+  transform:translateY(-2px)
+}
+.device small{display:block;color:var(--muted);font-weight:normal}
+.panel{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:22px;overflow:hidden;margin-top:24px;
+  box-shadow:0 8px 30px #57402b0c
+}
+.panel-head{padding:20px 22px 8px}
+.eyebrow{color:var(--gold);font-size:13px;font-weight:bold}
+.controls{padding:8px 22px 20px}
+label{display:block;font-weight:bold;margin-bottom:7px}
+select,input{font:inherit}
+select{
+  background:white;color:var(--ink);border:1px solid var(--line);
+  padding:10px;border-radius:10px;width:100%
+}
+input[type=range]{width:100%;accent-color:var(--brown)}
+.year-line{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.year{font-size:25px;font-weight:bold;color:var(--brown)}
+.timeline{
+  display:flex;gap:8px;overflow-x:auto;padding:12px 22px 20px;
+  scrollbar-width:thin
+}
+.time-btn{
+  flex:0 0 auto;border:1px solid var(--line);border-radius:12px;
+  background:white;padding:8px 13px;cursor:pointer;color:var(--ink);
+  font:inherit
+}
+.time-btn.active{background:var(--brown);color:white;border-color:var(--brown)}
+.story{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:0;
+  border-top:1px solid var(--line)
+}
+.photo{background:#e9dfd0;min-height:330px;position:relative}
+.photo img{width:100%;height:100%;min-height:330px;object-fit:contain;display:block}
+.photo-note{font-size:12px;color:#6f5b48;padding:8px 13px;background:#f0e6d8}
+.story-content{padding:25px}
+.story-content h2{font-size:27px;margin:3px 0 8px}
+.story-content p{color:#574a3d}
+.fact{
+  margin-top:17px;padding:13px 15px;background:#f3ebdf;
+  border-right:3px solid var(--gold);border-radius:8px
+}
+.fact b{display:block;color:var(--brown)}
+.status{font-size:13px;color:var(--muted);margin-top:9px}
+.compare{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px
+}
+.mini{background:#f5eee3;border-radius:14px;padding:15px}
+.mini b{color:var(--brown)}
+footer{text-align:center;color:var(--muted);padding:28px 12px;font-size:13px}
+button:focus-visible,select:focus-visible,input:focus-visible{
+  outline:3px solid #c4a779;outline-offset:3px
+}
+@media(max-width:700px){
+ .devices{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .story{grid-template-columns:1fr}
+ .photo,.photo img{min-height:250px;max-height:350px}
+ .story-content h2{font-size:23px}
+ .logo{font-size:40px}
+ .compare{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">أثــر</div>
+  <h1>رحلة عبر الزمن</h1>
+  <p>لكل جهاز حكاية، ولكل زمن أثر</p>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <h2>اكتشف كيف تغيّر العالم</h2>
+    اختَر جهازك، وحدّد السنة، وشاهد كيف كان في ذلك الزمن وكيف تطوّر.
+  </section>
+
+  <h2 class="section-title">١. اختر الجهاز</h2>
+  <div class="devices" id="devices"></div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">رحلتك التاريخية</span>
+      <h2 id="deviceTitle">الهاتف الأرضي</h2>
+      <p>غيّر السنة أو اختر محطة من الخط الزمني لتكتشف مرحلة مختلفة.</p>
+    </div>
+
+    <div class="controls">
+      <label for="yearSelect">٢. اختر السنة</label>
+      <select id="yearSelect"></select>
+      <div class="year-line">
+        <span>أقدم الفترات</span>
+        <span class="year" id="yearLabel">1990</span>
+        <span>أحدث الفترات</span>
+      </div>
+      <input id="yearRange" type="range" min="0" max="10" value="6" aria-label="التنقل بين السنوات">
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+
+    <div class="story">
+      <div>
+        <div class="photo">
+          <img id="photo" alt="صورة تاريخية للجهاز المختار" />
+        </div>
+        <div class="photo-note" id="photoNote">الصورة التاريخية للمرحلة المختارة</div>
+      </div>
+      <article class="story-content" aria-live="polite">
+        <span class="eyebrow" id="periodLabel">محطة تاريخية</span>
+        <h2 id="storyTitle">كيف كان الجهاز؟</h2>
+        <p id="storyText"></p>
+        <div class="fact">
+          <b>ما الذي تغيّر؟</b>
+          <span id="changeText"></span>
+        </div>
+        <div class="fact">
+          <b>هل تعلم؟</b>
+          <span id="factText"></span>
+        </div>
+        <p class="status" id="imageStatus">جارٍ البحث عن صورة تاريخية...</p>
+      </article>
+    </div>
+
+    <div class="compare" style="padding:0 20px 20px">
+      <div class="mini">
+        <b>قبل هذه المرحلة</b>
+        <div id="beforeText"></div>
+      </div>
+      <div class="mini">
+        <b>بعد هذه المرحلة</b>
+        <div id="afterText"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>أثر — رحلة عبر الزمن · متحف رقمي تفاعلي</footer>
+</main>
+
+<script>
+const devices = [
+{
+ id:"pager", name:"جهاز النداء", icon:"Pager",
+ stages:[
+ {y:1950,title:"بدايات أجهزة النداء",q:"early radio pager device 1950s",
+ text:"بدأت أجهزة النداء تُستخدم لإرسال تنبيهات إلى أشخاص بعيدين، خصوصًا في بعض الأعمال والخدمات الطبية.",
+ change:"أصبح بالإمكان تنبيه الشخص دون الاتصال به عبر هاتف منزلي.",
+ fact:"كانت بعض الأنظمة الأولى محدودة النطاق وتُستخدم في أماكن معينة.",
+ before:"كان الوصول إلى الشخص يتطلب غالبًا الاتصال بمكان وجوده.",
+ after:"ظهرت أجهزة أصغر تعرض أرقامًا ورسائل قصيرة."},
+ {y:1980,title:"جهاز النداء الصغير",q:"1980s vintage numeric pager beeper",
+ text:"انتشرت أجهزة النداء المحمولة، وأصبح كثير منها يعرض رقم المتصل أو رقمًا يطلب من المستخدم الاتصال به.",
+ change:"صغر الحجم وسهولة حمل الجهاز.",
+ fact:"كان المستخدم يرى الرقم ثم يبحث عن هاتف ليعاود الاتصال.",
+ before:"أجهزة وأنظمة أكبر وأقل سهولة في الحمل.",
+ after:"ظهرت أجهزة تعرض رسائل نصية، ثم تراجعت أمام الهواتف المحمولة."},
+ {y:1990,title:"عصر الرسائل القصيرة",q:"1990s vintage alphanumeric pager device",
+ text:"أصبحت بعض أجهزة النداء قادرة على عرض رسائل أبجدية رقمية، وليس الأرقام وحدها.",
+ change:"انتقل الجهاز من مجرد التنبيه إلى استقبال رسائل مختصرة.",
+ fact:"ظل جهاز النداء مهمًا في بعض المستشفيات بسبب موثوقية أنظمة معينة.",
+ before:"كانت الأجهزة تعرض أرقامًا في كثير من الاستخدامات.",
+ after:"انتشرت الهواتف المحمولة التي تجمع الاتصال والرسائل."},
+ {y:2000,title:"مرحلة تراجع الاستخدام",q:"early 2000s pager beeper device",
+ text:"حلّت الهواتف المحمولة محل كثير من الاستخدامات اليومية لأجهزة النداء، مع استمرار استخدامها في بعض القطاعات.",
+ change:"أصبحت وظائف الاتصال والرسائل متاحة في جهاز واحد.",
+ fact:"لا تزال بعض المؤسسات تستخدم أنظمة نداء متخصصة.",
+ before:"كانت أجهزة النداء وسيلة شائعة للتنبيه.",
+ after:"توسعت الهواتف الذكية وأدوات التواصل الحديثة."}
+ ]},
+{
+ id:"fax", name:"جهاز الفاكس", icon:"Fax",
+ stages:[
+ {y:1843,title:"فكرة إرسال الصور عن بُعد",q:"Alexander Bain early fax machine historical illustration",
+ text:"وضع ألكسندر باين براءة اختراع لجهاز تلغراف كيميائي قادر على نقل صور أو كتابات، في بدايات تقنية الفاكس.",
+ change:"ظهرت فكرة نقل نسخة من مستند إلى مكان بعيد.",
+ fact:"تقنيات الفاكس تطورت عبر مراحل كثيرة ولم تظهر بصورتها المكتبية الحالية دفعة واحدة.",
+ before:"كان نقل الوثائق يعتمد على إرسال الورق ماديًا أو نسخ محتواه بالتلغراف.",
+ after:"تطورت أنظمة الإرسال لتصبح أكثر عملية."},
+ {y:1920,title:"إرسال الصور عبر الاتصالات",q:"1920s radio facsimile machine historical photograph",
+ text:"استُخدمت تقنيات الفاكس في إرسال صور ومواد صحفية عبر خطوط الاتصال والإرسال اللاسلكي.",
+ change:"أصبح نقل الصور لمسافات بعيدة أكثر قابلية للاستخدام.",
+ fact:"كانت سرعة النقل وجودة الصورة تختلفان حسب التقنية المستخدمة.",
+ before:"كانت أنظمة الإرسال المبكرة محدودة.",
+ after:"تطورت أجهزة الفاكس المخصصة للمكاتب."},
+ {y:1964,title:"الفاكس المكتبي",q:"1960s Xerox Magnafax fax machine",
+ text:"ظهرت أجهزة فاكس مكتبية أكثر عملية، وأصبح بالإمكان إرسال نسخ من الوثائق عبر خطوط الهاتف.",
+ change:"تحول الفاكس إلى أداة مفيدة في بيئات العمل.",
+ fact:"كان وصول الورقة المطبوعة إلى الطرف الآخر ميزة مهمة للشركات.",
+ before:"كانت الأنظمة أبطأ وأقل ملاءمة للاستخدام اليومي.",
+ after:"انتشرت أجهزة الفاكس في المؤسسات خلال العقود التالية."},
+ {y:1990,title:"انتشار الفاكس",q:"1990s office fax machine thermal paper",
+ text:"انتشر الفاكس في المكاتب لإرسال العقود والطلبات والمستندات بسرعة أكبر من البريد التقليدي.",
+ change:"تحسن الاستخدام المكتبي وانتشر إرسال الأوراق مباشرة.",
+ fact:"كانت بعض أجهزة الفاكس تستخدم ورقًا حراريًا خاصًا.",
+ before:"كان إرسال المستندات يحتاج وقتًا أطول في كثير من الحالات.",
+ after:"أصبح البريد الإلكتروني والملفات الرقمية بدائل شائعة."},
+ {y:2020,title:"الفاكس في العصر الرقمي",q:"modern multifunction office printer scanner fax machine",
+ text:"توجد وظائف الفاكس اليوم ضمن بعض الأجهزة متعددة الوظائف، كما توجد خدمات فاكس رقمية عبر الإنترنت.",
+ change:"اندماج إرسال المستندات مع المسح الضوئي والأنظمة الرقمية.",
+ fact:"ما زالت بعض القطاعات تستخدم الفاكس بسبب متطلبات العمل.",
+ before:"كان الجهاز غالبًا وحدة مستقلة في المكتب.",
+ after:"أصبحت الوثائق تُرسل إلكترونيًا بطرق متعددة."}
+ ]},
+{
+ id:"floppy", name:"القرص المرن", icon:"Floppy",
+ stages:[
+ {y:1971,title:"القرص المرن الكبير",q:"IBM 8 inch floppy disk historical photo",
+ text:"ظهرت الأقراص المرنة في بدايات السبعينيات كوسيلة لتخزين البيانات ونقلها بين أنظمة الحاسوب.",
+ change:"صار بالإمكان نقل البيانات على وسيط صغير نسبيًا بدل الاعتماد على وسائل أكبر.",
+ fact:"كان القرص المرن الأول بحجم 8 بوصات تقريبًا.",
+ before:"اعتمدت الحواسيب على وسائل تخزين أكبر وأقل ملاءمة للنقل.",
+ after:"ظهرت أحجام أصغر وسعات تخزين أكبر."},
+ {y:1976,title:"حجم أصغر",q:"5.25 inch floppy disk vintage computer storage",
+ text:"انتشرت أقراص مرنة أصغر حجمًا، واستُخدمت في الحواسيب الشخصية لحفظ البرامج والملفات.",
+ change:"أصبح التخزين المحمول أسهل.",
+ fact:"اختلفت سعة الأقراص باختلاف النوع والجيل.",
+ before:"كانت الأقراص الكبيرة أقل ملاءمة لبعض الأجهزة.",
+ after:"ظهر قرص 3.5 بوصة ذي الغلاف الصلب."},
+ {y:1981,title:"قرص 3.5 بوصة",q:"Sony 3.5 inch floppy disk vintage photograph",
+ text:"انتشر القرص المرن ذي الحجم 3.5 بوصة، وكان أسهل في الحمل والحماية من بعض الأنواع السابقة.",
+ change:"أصبح القرص أصغر وأكثر صلابة من الخارج.",
+ fact:"أصبح رمز الحفظ في بعض البرامج مرتبطًا بشكل القرص المرن.",
+ before:"كانت أقراص 5.25 بوصة شائعة في عدد من الحواسيب.",
+ after:"زادت سعات التخزين وظهرت وسائل أحدث."},
+ {y:1990,title:"سنوات الاستخدام الواسع",q:"1990s floppy disks computer desk vintage",
+ text:"استخدم الطلاب والمكاتب الأقراص المرنة لحفظ المستندات والبرامج ونقلها بين الحواسيب.",
+ change:"أصبح حفظ الملفات ونقلها جزءًا من الاستخدام اليومي للحاسوب.",
+ fact:"كانت سعة القرص محدودة مقارنة بوسائل التخزين الحالية.",
+ before:"كان نقل الملفات أصعب دون وسيط صغير.",
+ after:"انتشرت الأقراص الضوئية وذاكرة USB ثم التخزين السحابي."},
+ {y:2020,title:"من التخزين إلى رمز الحفظ",q:"3.5 inch floppy disk on desk modern photograph",
+ text:"قلّ استخدام الأقراص المرنة في الحياة اليومية، لكنها بقيت رمزًا معروفًا للحفظ في بعض واجهات البرامج.",
+ change:"انتقل التخزين إلى وسائط أسرع وأعلى سعة.",
+ fact:"تحتاج بعض الأنظمة القديمة إلى حلول خاصة لقراءة الأقراص المرنة.",
+ before:"كان القرص وسيلة شائعة لنقل الملفات.",
+ after:"تستخدم اليوم وحدات SSD وذاكرة USB والتخزين السحابي."}
+ ]},
+{
+ id:"film", name:"الكاميرا الفيلمية", icon:"Camera",
+ stages:[
+ {y:1888,title:"التصوير للجمهور",q:"1888 Kodak No 1 box camera historical photograph",
+ text:"ساعدت كاميرات كوداك التي ظهرت في أواخر القرن التاسع عشر على جعل التصوير أسهل للجمهور.",
+ change:"لم يعد التصوير مقتصرًا على المعدات المعقدة والمتخصصين فقط.",
+ fact:"كان الفيلم يحتاج إلى معالجة لإظهار الصور.",
+ before:"كانت معدات التصوير المبكرة تحتاج خبرة وتجهيزات أكثر.",
+ after:"انتشرت كاميرات أصغر وأسهل في الاستخدام."},
+ {y:1900,title:"كاميرات أبسط",q:"1900 Kodak Brownie box camera antique",
+ text:"قدمت كاميرات صندوقية بسيطة تجربة تصوير أسهل وأقل تكلفة نسبيًا لعدد أكبر من الناس.",
+ change:"صار التصوير هواية متاحة لشرائح أوسع.",
+ fact:"اعتمدت الصور على فيلم يُحمّض أو يُعالج لإظهار النتيجة.",
+ before:"كانت الكاميرات أغلى وأكثر تعقيدًا.",
+ after:"تحسنت العدسات والأفلام وأدوات التحكم."},
+ {y:1960,title:"انتشار كاميرات الفيلم",q:"1960s 35mm film camera vintage",
+ text:"انتشرت كاميرات الأفلام بمقاسات وتصاميم متنوعة، مع تحسن جودة الصور وسهولة التحكم.",
+ change:"أصبحت الكاميرات أكثر تنوعًا للمصورين والهواة.",
+ fact:"كان عدد الصور مرتبطًا بطول الفيلم المستخدم.",
+ before:"كانت بعض الكاميرات أقل تنوعًا في الاستخدام.",
+ after:"ظهرت كاميرات إلكترونية ورقمية تدريجيًا."},
+ {y:1990,title:"مرحلة التحول",q:"1990s autofocus film camera vintage",
+ text:"أصبحت كاميرات كثيرة تضم تركيزًا تلقائيًا وميزات إلكترونية، بينما بدأت الكاميرات الرقمية بالظهور والانتشار تدريجيًا.",
+ change:"ساعدت الإلكترونيات على تسهيل التصوير والتحكم.",
+ fact:"لم تختفِ الكاميرات الفيلمية في التسعينيات؛ بل استمر استخدامها إلى جانب التقنيات الرقمية.",
+ before:"كانت وظائف كثيرة تعتمد على ضبط يدوي.",
+ after:"انتشرت الكاميرات الرقمية التي تحفظ الصور إلكترونيًا."},
+ {y:2020,title:"عودة الفيلم كهواية",q:"modern analog 35mm film camera vintage photography",
+ text:"استمر استخدام الكاميرات الفيلمية لدى هواة التصوير والفنانين، رغم سيطرة التصوير الرقمي على الاستخدام اليومي.",
+ change:"أصبحت تجربة الفيلم اختيارًا فنيًا له طابع خاص.",
+ fact:"يتطلب التصوير الفيلمي فيلمًا ومعالجة أو تحميضًا.",
+ before:"كان الفيلم الطريقة الأساسية للتصوير لدى كثيرين.",
+ after:"تتيح الكاميرات الرقمية والهواتف مشاهدة الصور فورًا."}
+ ]},
+{
+ id:"landline",name:"الهاتف الأرضي",icon:"Telephone",
+ stages:[
+ {y:1876,title:"بداية الهاتف",q:"Alexander Graham Bell 1876 telephone historical device",
+ text:"ارتبطت سنة 1876 بتجارب ألكسندر غراهام بيل الناجحة وبداية مرحلة مهمة في تطوير الهاتف.",
+ change:"أصبح نقل الصوت عبر الأسلاك ممكنًا عمليًا.",
+ fact:"تطور الهاتف بجهود عدة مخترعين ومهندسين عبر الزمن.",
+ before:"كان التلغراف ينقل الرسائل باستخدام إشارات.",
+ after:"تطورت الشبكات وظهرت هواتف منزلية أكثر سهولة."},
+ {y:1920,title:"الهاتف المنزلي",q:"1920s antique candlestick telephone historical",
+ text:"استخدمت هواتف مكتبية ومنزلية بتصاميم ميكانيكية، مع تطور شبكات الاتصال وانتشارها تدريجيًا.",
+ change:"أصبح الهاتف جزءًا من التواصل في المنازل والأعمال.",
+ fact:"اختلف شكل الهاتف وطريقة الاتصال بحسب البلد والشبكة.",
+ before:"كانت الخدمة محدودة في بداياتها.",
+ after:"ظهرت تصاميم متكاملة وأقراص للاتصال."},
+ {y:1960,title:"الهاتف ذو القرص",q:"1960s rotary dial telephone vintage",
+ text:"انتشرت هواتف ذات قرص دوار، يختار المستخدم الرقم بتحريك القرص إلى موضعه.",
+ change:"أصبح إجراء المكالمات من المنزل مألوفًا أكثر.",
+ fact:"كان الاتصال يتطلب تدوير القرص لكل رقم.",
+ before:"استخدمت تصاميم أقدم بطرق تشغيل مختلفة.",
+ after:"ظهرت الهواتف ذات الأزرار ثم الهواتف اللاسلكية."},
+ {y:1990,title:"الأزرار والهواتف اللاسلكية",q:"1990s beige push button cordless landline telephone",
+ text:"انتشرت الهواتف ذات الأزرار، كما أصبحت الهواتف اللاسلكية المنزلية أكثر شيوعًا.",
+ change:"صار الاتصال أسهل دون الحاجة إلى تدوير القرص، وأتاح اللاسلكي الحركة داخل المنزل.",
+ fact:"بعض الهواتف اللاسلكية المنزلية ظلت تحتاج إلى قاعدة متصلة بخط الهاتف.",
+ before:"كانت الهواتف ذات القرص مستخدمة على نطاق واسع.",
+ after:"انتشرت الهواتف المحمولة والاتصالات الرقمية."},
+ {y:2020,title:"الهاتف الأرضي اليوم",q:"modern cordless home landline telephone handset base",
+ text:"توجد هواتف منزلية سلكية ولاسلكية، كما تستخدم بعض الشبكات الحديثة تقنيات رقمية لنقل المكالمات.",
+ change:"تطورت الشبكات وطريقة نقل الصوت، حتى لو بقي شكل بعض الهواتف مألوفًا.",
+ fact:"يمكن لبعض الهواتف المنزلية الحديثة العمل عبر شبكات الإنترنت أو أنظمة رقمية.",
+ before:"اعتمدت الاتصالات المنزلية تقليديًا على الشبكات الهاتفية السلكية.",
+ after:"تتكامل خدمات الاتصال اليوم مع الإنترنت والهواتف الذكية."}
+ ]},
+{
+ id:"printer",name:"الطابعات",icon:"Printer",
+ stages:[
+ {y:1450,title:"الطباعة بالحروف المتحركة",q:"Gutenberg printing press 15th century historical illustration",
+ text:"انتشرت الطباعة بالحروف المعدنية المتحركة في أوروبا في القرن الخامس عشر، وارتبطت بيوهانس غوتنبرغ.",
+ change:"أصبح إنتاج نسخ كثيرة من النصوص أسرع من نسخها يدويًا.",
+ fact:"كانت المطابع الأولى مكابس طباعة، وليست طابعات الحاسوب الحديثة.",
+ before:"كانت الكتب تُنسخ يدويًا في كثير من الحالات.",
+ after:"تطورت آلات الطباعة وأساليب إنتاج الكتب والصحف."},
+ {y:1880,title:"الطباعة الآلية",q:"19th century industrial printing press historical photograph",
+ text:"تطورت المطابع الآلية لتنتج الكتب والصحف بكميات أكبر وبسرعة أعلى.",
+ change:"زاد حجم الإنتاج وأصبحت الطباعة أكثر كفاءة.",
+ fact:"كانت هذه المطابع مختلفة عن طابعات المكاتب المتصلة بالحاسوب.",
+ before:"اعتمدت الطباعة على مكابس وتقنيات أقدم.",
+ after:"ظهرت الطباعة المكتبية والإلكترونية."},
+ {y:1980,title:"الطابعات المكتبية",q:"1980s dot matrix computer printer vintage",
+ text:"انتشرت الطابعات المتصلة بالحواسيب، ومنها الطابعات النقطية التي تطبع باستخدام إبر وشريط حبر.",
+ change:"أصبح بإمكان المكاتب طباعة المستندات مباشرة من الحاسوب.",
+ fact:"كانت الطابعات النقطية تصدر صوتًا واضحًا أثناء الطباعة.",
+ before:"كان إنتاج المستندات يعتمد على وسائل مكتبية أخرى.",
+ after:"انتشرت طابعات الليزر ونفث الحبر."},
+ {y:2000,title:"طابعات الليزر والحبر",q:"2000s desktop inkjet laser printer office",
+ text:"أصبحت طابعات الليزر ونفث الحبر شائعة في المنازل والمدارس والمكاتب، مع تحسن جودة النصوص والصور.",
+ change:"ازدادت جودة الطباعة وتنوعت الخيارات.",
+ fact:"تختلف الطابعات في التكلفة والسرعة ونوع الحبر أو مسحوق الطباعة.",
+ before:"كانت الطابعات القديمة أبطأ أو أكثر ضجيجًا في كثير من الاستخدامات.",
+ after:"ظهرت أجهزة متعددة الوظائف وطباعة لاسلكية."},
+ {y:2020,title:"الطباعة الذكية وثلاثية الأبعاد",q:"modern 3D printer and multifunction office printer",
+ text:"تشمل الطابعات الحديثة أجهزة مكتبية متصلة لاسلكيًا، كما أتاحت الطباعة ثلاثية الأبعاد صنع مجسمات وقطع من مواد مختلفة.",
+ change:"توسعت الطباعة من الورق إلى نماذج وأجسام ثلاثية الأبعاد.",
+ fact:"الطباعة ثلاثية الأبعاد تختلف عن طباعة المستندات التقليدية.",
+ before:"تركزت الطباعة المكتبية على الورق والصور.",
+ after:"تواصل تقنيات الطباعة تطوير السرعة والدقة والمواد."}
+ ]},
+{
+ id:"tv",name:"التلفاز",icon:"TV",
+ stages:[
+ {y:1920,title:"تجارب التلفاز الأولى",q:"1920s early mechanical television historical photograph",
+ text:"ظهرت تجارب التلفاز الميكانيكي والإلكتروني في بدايات القرن العشرين، وتطورت التقنية عبر جهود متعددة.",
+ change:"بدأ نقل الصور المتحركة إلى المشاهدين إلكترونيًا أو بوسائل تجريبية.",
+ fact:"لم يكن التلفاز في هذه المرحلة جهازًا منزليًا شائعًا كما أصبح لاحقًا.",
+ before:"كان الراديو وسيلة إعلام منزلية مهمة.",
+ after:"بدأ البث التلفزيوني ينتشر في عدد من الدول."},
+ {y:1950,title:"التلفاز بالأبيض والأسود",q:"1950s black and white television wooden cabinet vintage",
+ text:"انتشر التلفاز المنزلي في عدد من البلدان، وكانت الشاشات بالأبيض والأسود شائعة.",
+ change:"أصبح بالإمكان متابعة الأخبار والبرامج والصور المتحركة في المنزل.",
+ fact:"اختلف انتشار التلفاز حسب البلد وتوفر البث والكهرباء.",
+ before:"كان الراديو من أبرز وسائل الإعلام المنزلية.",
+ after:"انتشر البث الملون وتحسنت الأجهزة."},
+ {y:1970,title:"ظهور اللون وانتشاره",q:"1970s color CRT television vintage wooden cabinet",
+ text:"توسّع استخدام التلفاز الملون في الأسواق التي توفر فيها البث الملون والأجهزة المناسبة.",
+ change:"أصبحت البرامج تُشاهد بألوانها بدل الأبيض والأسود.",
+ fact:"استمر استخدام أجهزة الأبيض والأسود في بعض الأماكن بعد ظهور اللون.",
+ before:"كانت الشاشات أحادية اللون شائعة.",
+ after:"تحسنت الشاشات والإلكترونيات وظهرت أجهزة أنحف."},
+ {y:1990,title:"شاشات CRT",q:"1990s CRT television television set vintage",
+ text:"كانت شاشات أنبوب الأشعة المهبطية كبيرة الحجم وعميقة، واستُخدمت في منازل كثيرة خلال التسعينيات.",
+ change:"تحسنت جودة الصورة والميزات مع استمرار التصميم ذي الأنبوب.",
+ fact:"كانت هذه الأجهزة أثقل وأعمق من معظم الشاشات المسطحة الحديثة.",
+ before:"كانت تقنيات التلفاز الملون قد أصبحت شائعة.",
+ after:"انتشرت شاشات LCD والبلازما تدريجيًا."},
+ {y:2020,title:"التلفاز الذكي",q:"modern smart OLED flat screen television living room",
+ text:"تجمع أجهزة التلفاز الحديثة بين الشاشات المسطحة والدقة العالية والاتصال بالإنترنت والتطبيقات.",
+ change:"تحول التلفاز من جهاز بث تقليدي إلى منصة محتوى تفاعلية.",
+ fact:"تختلف التقنيات الحديثة بين LED وOLED وغيرها.",
+ before:"كانت القنوات التلفزيونية هي الاستخدام الأساسي لدى كثير من المشاهدين.",
+ after:"أصبحت التطبيقات وخدمات البث جزءًا مهمًا من المشاهدة."}
+ ]},
+{
+ id:"mobile",name:"الهواتف المحمولة",icon:"Mobile",
+ stages:[
+ {y:1973,title:"النموذج المحمول الأول",q:"Martin Cooper 1973 Motorola DynaTAC prototype historical photo",
+ text:"في عام 1973 أجرى مارتن كوبر مكالمة شهيرة باستخدام نموذج هاتف محمول يدوي.",
+ change:"أظهرت التجربة إمكانية إجراء مكالمة هاتفية أثناء التنقل.",
+ fact:"كان النموذج أكبر وأثقل بكثير من الهواتف المحمولة الحديثة.",
+ before:"كان الاتصال الصوتي يعتمد على الهاتف الثابت أو أنظمة لاسلكية خاصة.",
+ after:"تطورت الشبكات والأجهزة حتى ظهرت الهواتف التجارية المحمولة."},
+ {y:1983,title:"الهاتف المحمول التجاري",q:"Motorola DynaTAC 8000X 1983 vintage mobile phone",
+ text:"طُرح هاتف Motorola DynaTAC 8000X تجاريًا في عام 1983، وكان كبير الحجم ومرتفع الثمن مقارنةً بالهواتف الحالية.",
+ change:"انتقل الهاتف المحمول من النماذج التجريبية إلى منتج تجاري.",
+ fact:"كان عمر البطارية ووقت المكالمة محدودين مقارنة باليوم.",
+ before:"كانت النماذج المحمولة المبكرة ضخمة ومكلفة.",
+ after:"أصبحت الأجهزة أصغر وظهرت شبكات رقمية."},
+ {y:1990,title:"هواتف أصغر وشبكات رقمية",q:"1990s vintage Nokia mobile phone GSM",
+ text:"شهدت التسعينيات انتشارًا متزايدًا للهواتف المحمولة، مع ظهور أجهزة أصغر وانتشار شبكات رقمية مثل GSM في دول عديدة.",
+ change:"تحسنت قابلية الحمل وظهرت الرسائل النصية في أجهزة وشبكات مناسبة.",
+ fact:"اختلف موعد انتشار الهواتف المحمولة من بلد إلى آخر.",
+ before:"كانت الأجهزة المبكرة كبيرة ومكلفة نسبيًا.",
+ after:"انتشرت الهواتف متعددة الوظائف والكاميرات المحمولة."},
+ {y:2007,title:"بداية عصر الهواتف الذكية الحديثة",q:"first generation Apple iPhone 2007 original phone photograph",
+ text:"أُعلن عن أول iPhone عام 2007، وأسهم في ترسيخ تجربة تجمع شاشة اللمس ومتصفح الإنترنت والتطبيقات في جهاز واحد.",
+ change:"أصبحت الشاشة اللمسية والبرمجيات جزءًا محوريًا من تجربة الهاتف.",
+ fact:"كانت الهواتف الذكية موجودة قبل 2007، لكن أشكالها وواجهاتها اختلفت.",
+ before:"استخدمت أجهزة كثيرة أزرارًا فعلية وشاشات أصغر.",
+ after:"توسعت التطبيقات والشاشات والكاميرات والاتصال السريع."},
+ {y:2020,title:"الهاتف الذكي الحديث",q:"2020 modern smartphone touchscreen multiple cameras",
+ text:"تجمع الهواتف الذكية الحديثة بين التصوير المتقدم والإنترنت والتطبيقات والملاحة وأدوات الذكاء الاصطناعي.",
+ change:"أصبح الهاتف أداة متعددة الاستخدامات في جهاز واحد.",
+ fact:"تختلف الميزات حسب الشركة والطراز وسنة الإصدار.",
+ before:"كانت كثير من الأجهزة أبطأ وأقل قدرة في التصوير والاتصال.",
+ after:"يستمر التطور في الكاميرات والمعالجات والاتصال."}
+ ]}
+];
+
+const yearOptions=[1480,1843,1876,1880,1888,1900,1920,1950,1960,1964,1970,1971,1973,1976,1980,1981,1983,1990,2000,2007,2020];
+let selected=devices[4];
+let chosenYear=1990;
+let currentStage=null;
+const $=id=>document.getElementById(id);
+
+function renderDevices(){
+ $("devices").innerHTML=devices.map(d=>
+ `<button class="device ${d.id===selected.id?"active":""}" data-id="${d.id}">
+ ${d.name}<small>استكشف الرحلة ←</small></button>`
+ ).join("");
+ document.querySelectorAll(".device").forEach(b=>b.onclick=()=>{
+ selected=devices.find(d=>d.id===b.dataset.id);
+ renderDevices();renderTimeline();showYear(chosenYear);
+ });
+}
+function stageForYear(year){
+ const valid=selected.stages.filter(s=>s.y<=year);
+ return valid.length?valid[valid.length-1]:null;
+}
+function renderTimeline(){
+ $("deviceTitle").textContent=selected.name;
+ $("timeline").innerHTML=selected.stages.map(s=>
+ `<button class="time-btn ${currentStage&&s.y===currentStage.y?"active":""}" data-year="${s.y}">
+ ${s.y}</button>`).join("");
+ document.querySelectorAll(".time-btn").forEach(b=>b.onclick=()=>{
+ chosenYear=Number(b.dataset.year);showYear(chosenYear);
+ });
+}
+function showYear(year){
+ chosenYear=year;
+ $("yearLabel").textContent=year;
+ $("yearSelect").value=String(year);
+ $("yearRange").value=yearOptions.indexOf(year);
+ currentStage=stageForYear(year);
+ renderTimeline();
+
+ if(!currentStage){
+ $("periodLabel").textContent="قبل ظهور الجهاز";
+ $("storyTitle").textContent="لم يكن هذا الجهاز موجودًا بعد";
+ $("storyText").textContent=`في سنة ${year} لم يكن ${selected.name} قد ظهر بصورته المعروفة. يمكنك الانتقال إلى سنة لاحقة لاستكشاف بداياته وتطوره.`;
+ $("changeText").textContent="هذه الفترة تسبق مرحلة ظهوره الموثقة في هذا الخط الزمني.";
+ $("factText").textContent="التقنيات غالبًا تتطور تدريجيًا عبر تجارب واختراعات متعددة.";
+ $("beforeText").textContent="تقنيات أقدم أو وسائل بديلة.";
+ $("afterText").textContent="انتقل إلى محطة لاحقة لرؤية أولى مراحل تطور الجهاز.";
+ $("photo").removeAttribute("src");
+ $("photo").alt="لا توجد صورة للجهاز لأنه لم يكن قد ظهر في هذا الزمن";
+ $("photoNote").textContent="لم يكن الجهاز قد ظهر في هذه الفترة";
+ $("imageStatus").textContent="اختر سنة لاحقة لرؤية صورة مناسبة.";
+ return;
+ }
+ $("periodLabel").textContent="محطة "+currentStage.y;
+ $("storyTitle").textContent=currentStage.title;
+ $("storyText").textContent=currentStage.text;
+ $("changeText").textContent=currentStage.change;
+ $("factText").textContent=currentStage.fact;
+ $("beforeText").textContent=currentStage.before;
+ $("afterText").textContent=currentStage.after;
+ $("photo").alt=currentStage.title+" - "+selected.name;
+ $("photoNote").textContent="صورة مرتبطة بالمرحلة التاريخية · "+currentStage.y;
+ loadImage(selected.name+" "+currentStage.q, currentStage.y, selected.id);
+}
+async function loadImage(query,year,id){
+ const img=$("photo"), status=$("imageStatus");
+ status.textContent="جارٍ البحث عن صورة تاريخية مناسبة...";
+ img.removeAttribute("src");
+ try{
+ const url="https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="
+ +encodeURIComponent(query+" filetype:bitmap")
+ +"&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url&iiurlwidth=1000&format=json&origin=*";
+ const response=await fetch(url);
+ if(!response.ok) throw new Error("network");
+ const data=await response.json();
+ const pages=Object.values(data.query?.pages||{});
+ if(!pages.length) throw new Error("no image");
+ pages.sort((a,b)=>{
+ const at=(a.title||"").toLowerCase(), bt=(b.title||"").toLowerCase();
+ const q=query.toLowerCase().split(" ");
+ const score=t=>q.reduce((n,w)=>n+(w.length>3&&t.includes(w)?1:0),0);
+ return score(bt)-score(at);
+ });
+ const chosen=pages.find(p=>p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url);
+ if(!chosen) throw new Error("no image");
+ const imageUrl=chosen.imageinfo[0].thumburl||chosen.imageinfo[0].url;
+ if(selected.id!==id||!currentStage||currentStage.y!==year)return;
+ img.src=imageUrl;
+ img.onload=()=>{status.textContent="الصورة من ويكيميديا كومنز. يُفضّل التحقق من مطابقتها الدقيقة للمرحلة.";};
+ img.onerror=()=>{status.textContent="تعذّر تحميل هذه الصورة. جرّب فترة أخرى أو تحقق من اتصال الإنترنت.";};
+ }catch(e){
+ status.textContent="تعذّر جلب صورة الآن. تأكد من اتصال الإنترنت، ويمكن مراجعة صور المرحلة لاحقًا.";
+ }
+}
+$("yearSelect").innerHTML=yearOptions.map(y=>`<option value="${y}">${y}</option>`).join("");
+$("yearSelect").onchange=e=>showYear(Number(e.target.value));
+$("yearRange").min=0;
+$("yearRange").max=yearOptions.length-1;
+$("yearRange").oninput=e=>showYear(yearOptions[Number(e.target.value)]);
+renderDevices();
+renderTimeline();
+showYear(chosenYear);
+</script>
+</body>
+</html>
