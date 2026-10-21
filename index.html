@@ -3,611 +3,534 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171827">
 <title>أثر | رحلة عبر الزمن</title>
 
 <style>
-:root {
-  --bg: #f6f1e8;
-  --paper: #fffdf8;
-  --ink: #29251f;
-  --muted: #797064;
-  --gold: #b58b4b;
-  --line: #e6dccb;
-  --dark: #30271f;
-  --soft: #efe5d5;
+:root{
+  --bg:#171827;
+  --card:#222438;
+  --card2:#292c43;
+  --gold:#e7c891;
+  --white:#fffaf0;
+  --muted:#c0c2d2;
+  --line:#42445d;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: Tahoma, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  line-height: 1.9;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:radial-gradient(ellipse at top,#34304b,var(--bg) 65%);
+  color:var(--white);
+  line-height:1.9;
 }
-button, select { font: inherit; }
-button { cursor: pointer; }
-.hidden { display: none !important; }
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.hidden{display:none!important}
+button:disabled{opacity:.35;cursor:not-allowed}
 
-.hero {
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px 18px;
-  text-align: center;
+.hero{
+  min-height:100vh;
+  min-height:100svh;
+  padding:30px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero-inner{width:100%;max-width:720px}
+.eyebrow{
+  display:inline-block;
+  border:1px solid #82759b;
+  color:var(--gold);
+  padding:5px 16px;
+  border-radius:40px;
+  font-size:12px;
+}
+.hero-icon{
+  font-size:72px;
+  margin:22px auto 4px;
+  animation:float 3s ease-in-out infinite;
+}
+.hero h1{
+  font-size:clamp(65px,15vw,110px);
+  line-height:1.25;
+  margin:0;
+  color:var(--gold);
+  letter-spacing:5px;
+}
+.hero h2{font-size:clamp(22px,5vw,34px);margin:0}
+.hero p{color:var(--muted);max-width:500px;margin:18px auto 26px}
+.primary{
+  border:0;
+  border-radius:30px;
+  padding:13px 27px;
+  background:var(--gold);
+  color:#252033;
+  font-weight:bold;
+  box-shadow:0 8px 25px #0003;
+}
+.primary:hover{filter:brightness(1.08);transform:translateY(-2px)}
+@keyframes float{50%{transform:translateY(-8px)}}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#171827f2;
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+}
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.brand{font-size:22px;font-weight:bold;color:var(--gold)}
+.brand small{display:block;color:var(--muted);font-size:11px;font-weight:normal}
+.secondary{
+  background:var(--card);
+  color:var(--white);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:8px 13px;
+}
+main{max-width:1100px;margin:auto;padding:25px 16px 45px}
+.heading{font-size:25px;margin:0}
+.subheading{color:var(--muted);font-size:14px;margin:3px 0 20px}
+
+.device-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.device-card{
+  min-width:0;
+  min-height:125px;
+  padding:14px 7px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:linear-gradient(145deg,var(--card2),var(--card));
+  color:var(--white);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  transition:transform .2s,border-color .2s;
+}
+.device-card:hover{transform:translateY(-3px)}
+.device-card.active{
+  border:2px solid var(--gold);
+  background:#39354c;
+}
+.device-icon{font-size:35px;line-height:1.5}
+.device-name{font-size:13px;font-weight:bold}
+.device-hint{font-size:10px;color:var(--muted)}
+
+.story{
+  margin-top:25px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  background:linear-gradient(145deg,#24273d,#1c1e30);
+}
+.story-top{padding:18px 20px;border-bottom:1px solid var(--line)}
+.story-top h2{margin:0;font-size:25px}
+.story-top p{margin:2px 0 0;color:var(--muted);font-size:13px}
+
+.periods{display:flex;gap:9px;padding:15px 16px 8px}
+.period-button{
+  flex:1;
+  min-width:0;
+  padding:10px 4px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--white);
+}
+.period-button.active{background:var(--gold);color:#262033;border-color:var(--gold)}
+.period-button strong{display:block;font-size:12px}
+.period-button span{font-size:10px}
+
+.content{
+  padding:14px 20px 20px;
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:22px;
+}
+.art{
+  min-height:280px;
+  border:1px solid #786b854d;
+  border-radius:20px;
   background:
-    radial-gradient(ellipse at top, #e9d8b8 0%, transparent 60%),
-    linear-gradient(145deg, #f8f4ec, #e8dcc9);
+    radial-gradient(circle at center,#8e7ab52c,transparent 65%),
+    linear-gradient(145deg,#333047,#222438);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px 10px;
 }
-.hero-inner { max-width: 680px; }
-.eyebrow {
-  color: #806239;
-  letter-spacing: 3px;
-  font-size: 12px;
-  font-weight: bold;
+.art-emoji{font-size:clamp(78px,14vw,120px);line-height:1.6;animation:appear .3s}
+.art-year{color:var(--gold);font-weight:bold;font-size:15px;margin-top:8px}
+.art-caption{color:var(--muted);font-size:12px}
+@keyframes appear{
+  from{opacity:.2;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
 }
-.hero-symbol {
-  width: 105px;
-  height: 105px;
-  margin: 26px auto;
-  border: 1px solid #c7a56c;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 49px;
-  background: #fffaf0;
-  box-shadow: 0 12px 36px #70573518;
+.details h3{font-size:23px;margin:0 0 8px}
+.details>p{color:#e0dfeb;margin:0 0 16px}
+.info{
+  background:#ffffff06;
+  border:1px solid var(--line);
+  border-right:3px solid var(--gold);
+  border-radius:0 12px 12px 0;
+  padding:10px 13px;
+  margin-top:11px;
 }
-.hero h1 {
-  font-size: clamp(52px, 12vw, 82px);
-  letter-spacing: 5px;
-  margin: 0;
-  color: var(--dark);
-}
-.hero h2 {
-  font-size: clamp(21px, 5vw, 30px);
-  margin: 0 0 15px;
-  font-weight: normal;
-}
-.hero p {
-  max-width: 480px;
-  color: var(--muted);
-  margin: 12px auto 25px;
-}
-.primary {
-  border: none;
-  border-radius: 30px;
-  background: var(--dark);
-  color: white;
-  padding: 13px 28px;
-  box-shadow: 0 5px 15px #30271f22;
-}
-.primary:hover { background: #55402c; }
+.info h4{margin:0 0 4px;color:var(--gold);font-size:14px}
+.info p{margin:0;color:#dedfeb;font-size:13px}
 
-header {
-  background: var(--paper);
-  border-bottom: 1px solid var(--line);
-  padding: 13px 18px;
-  position: sticky;
-  top: 0;
-  z-index: 5;
+.navigation{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  padding:0 20px 20px;
 }
-.header-inner {
-  max-width: 1050px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+.navigation button{flex:1}
+.progress{padding:0 20px 20px}
+.progress-label{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:11px;
 }
-.brand { font-weight: bold; font-size: 19px; }
-.brand small {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: normal;
-}
-.small-button {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 7px 13px;
-  background: white;
-  color: var(--ink);
-}
-main {
-  max-width: 1050px;
-  margin: auto;
-  padding: 26px 16px 50px;
-}
-.section-heading { margin: 0 0 5px; font-size: 25px; }
-.section-note { color: var(--muted); margin: 0 0 20px; font-size: 14px; }
+.progress-track{height:5px;background:#3a3c51;border-radius:20px;overflow:hidden;margin-top:7px}
+.progress-fill{height:100%;width:0;background:var(--gold);transition:width .3s}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 10px 5px}
 
-.device-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 30px;
+@media(max-width:650px){
+  .device-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .content{grid-template-columns:1fr;padding:12px;gap:15px}
+  .art{min-height:220px}
+  .art-emoji{font-size:88px}
+  .periods{gap:5px;padding:12px 9px 5px}
+  .period-button{padding:9px 2px}
+  .period-button strong{font-size:11px}
+  .story-top{padding:15px}
+  .navigation{padding:0 12px 15px}
+  .progress{padding:0 12px 15px}
 }
-.device-card {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--paper);
-  color: var(--ink);
-  padding: 16px 8px;
-  min-height: 125px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  transition: transform .2s, border-color .2s, background .2s;
-}
-.device-card:hover { transform: translateY(-3px); }
-.device-card.active {
-  border: 2px solid var(--gold);
-  background: #f3e8d5;
-}
-.device-icon { font-size: 35px; line-height: 1.5; }
-.device-name { font-size: 13px; font-weight: bold; }
-.device-hint { font-size: 10px; color: var(--muted); }
-
-.story-card {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 10px 35px #40301c08;
-}
-.story-header {
-  padding: 19px 20px 12px;
-  border-bottom: 1px solid var(--line);
-}
-.story-header h2 { margin: 0; font-size: 25px; }
-.story-header p { color: var(--muted); margin: 2px 0 0; font-size: 13px; }
-
-.timeline {
-  display: flex;
-  gap: 8px;
-  padding: 16px 16px 10px;
-}
-.period-button {
-  flex: 1;
-  min-width: 0;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--ink);
-  border-radius: 12px;
-  padding: 10px 5px;
-}
-.period-button.active {
-  background: var(--dark);
-  color: white;
-  border-color: var(--dark);
-}
-.period-button strong { display: block; font-size: 13px; }
-.period-button span { font-size: 10px; opacity: .8; }
-
-.showcase {
-  display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-  gap: 22px;
-  padding: 16px 20px 23px;
-  align-items: start;
-}
-.visual {
-  min-height: 270px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #efe4d2, #faf4e9);
-  border: 1px solid #e8dac4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 22px 12px;
-}
-.visual-emoji {
-  font-size: clamp(76px, 15vw, 125px);
-  line-height: 1.5;
-  filter: drop-shadow(0 8px 8px #4b382019);
-  animation: appear .25s ease;
-}
-.visual-period {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #6d5739;
-  font-weight: bold;
-}
-.visual-caption { font-size: 12px; color: var(--muted); margin-top: 4px; }
-@keyframes appear {
-  from { opacity: .3; transform: scale(.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-.story-content h3 { font-size: 22px; margin: 0 0 7px; }
-.story-content > p { margin: 0 0 15px; color: #5e574d; }
-.info-block {
-  padding: 12px 14px;
-  border-radius: 13px;
-  margin-top: 10px;
-  background: #f7f1e7;
-  border: 1px solid #eee3d2;
-}
-.info-block h4 { margin: 0 0 4px; font-size: 14px; }
-.info-block p { margin: 0; color: #62594e; font-size: 13px; }
-
-.controls {
-  padding: 0 20px 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-.control-button {
-  border: 1px solid var(--line);
-  background: white;
-  color: var(--ink);
-  border-radius: 12px;
-  padding: 10px 15px;
-}
-.control-button:disabled { opacity: .4; cursor: not-allowed; }
-
-.footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-  padding: 25px 10px 5px;
-}
-@media (max-width: 650px) {
-  .device-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .showcase { grid-template-columns: 1fr; padding: 12px; gap: 16px; }
-  .visual { min-height: 225px; }
-  .timeline { gap: 5px; padding: 12px 10px 5px; }
-  .period-button { padding: 8px 2px; }
-  .period-button strong { font-size: 11px; }
-  .story-header { padding: 15px 14px 10px; }
-  .controls { padding: 0 12px 15px; }
-  .hero p { font-size: 14px; }
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}
 }
 </style>
 </head>
 
 <body>
 
-<section class="hero" id="hero">
+<section class="hero" id="home">
   <div class="hero-inner">
-    <div class="eyebrow">مشروع رحلة المعرفة</div>
-    <div class="hero-symbol">⌛</div>
+    <span class="eyebrow">مشروع تفاعلي عبر الزمن</span>
+    <div class="hero-icon">⌛</div>
     <h1>أثــر</h1>
     <h2>رحلة عبر الزمن</h2>
     <p>
-      لكل جهاز حكاية، ولكل اختراع أثر.
-      اكتشفي كيف تغيّرت الأجهزة من بداياتها القديمة
-      إلى التقنيات التي نستخدمها اليوم.
+      اكتشفي حكاية الأجهزة التي غيّرت حياتنا،
+      وتأملي كيف انتقلت من أشكالها القديمة
+      إلى التقنيات الحديثة التي نستخدمها اليوم.
     </p>
-    <button class="primary" id="startButton">ابدئي الرحلة ←</button>
+    <button class="primary" id="startBtn" type="button">
+      ابدئي الرحلة ←
+    </button>
   </div>
 </section>
 
-<header id="siteHeader" class="hidden">
+<header id="topbar" class="hidden">
   <div class="header-inner">
     <div class="brand">أثــر <small>رحلة عبر الزمن</small></div>
-    <button class="small-button" id="homeButton">⌂ الرئيسية</button>
+    <button class="secondary" id="homeBtn" type="button">⌂ الرئيسية</button>
   </div>
 </header>
 
 <main id="app" class="hidden">
-  <h2 class="section-heading">اكتشفي حكاية الأجهزة</h2>
-  <p class="section-note">اختاري جهازًا، ثم تنقّلي بين فتراته الزمنية.</p>
+  <h2 class="heading">حكايات الأجهزة</h2>
+  <p class="subheading">اختاري جهازًا، ثم انتقلي بين مراحله الزمنية.</p>
 
   <div class="device-grid" id="deviceGrid"></div>
 
-  <section class="story-card" id="storyCard">
-    <div class="story-header">
+  <section class="story" id="story">
+    <div class="story-top">
       <h2 id="deviceTitle">حكاية الجهاز</h2>
-      <p>من البدايات الأولى إلى التقنيات الحديثة</p>
+      <p>من الماضي إلى الحاضر — اكتشفي مراحل التطور</p>
     </div>
 
-    <div class="timeline" id="timeline"></div>
+    <div class="periods" id="periods"></div>
 
-    <div class="showcase">
-      <div class="visual">
-        <div class="visual-emoji" id="visualEmoji">☎️</div>
-        <div class="visual-period" id="visualPeriod">الفترة الزمنية</div>
-        <div class="visual-caption" id="visualCaption">رمز توضيحي للجهاز في هذه الفترة</div>
+    <div class="content">
+      <div class="art">
+        <div class="art-emoji" id="emoji">☎️</div>
+        <div class="art-year" id="year"></div>
+        <div class="art-caption" id="caption"></div>
       </div>
 
-      <div class="story-content">
-        <h3 id="periodTitle">عنوان الفترة</h3>
+      <div class="details">
+        <h3 id="periodTitle"></h3>
         <p id="description"></p>
 
-        <div class="info-block">
+        <div class="info">
           <h4>كيف كان يُستخدم؟</h4>
           <p id="usage"></p>
         </div>
 
-        <div class="info-block">
+        <div class="info">
           <h4>كيف تطوّر؟</h4>
           <p id="evolution"></p>
         </div>
       </div>
     </div>
 
-    <div class="controls">
-      <button class="control-button" id="previousButton">→ الفترة السابقة</button>
-      <button class="control-button" id="nextButton">الفترة التالية ←</button>
+    <div class="navigation">
+      <button class="secondary" id="prevBtn" type="button">→ السابقة</button>
+      <button class="primary" id="nextBtn" type="button">التالية ←</button>
+    </div>
+
+    <div class="progress">
+      <div class="progress-label">
+        <span id="progressText">الجهاز 1 من 8</span>
+        <span id="periodText">الفترة 1 من 3</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
     </div>
   </section>
 
-  <div class="footer">
-    أثــر — رحلة عبر الزمن · من الماضي إلى الحاضر
-  </div>
+  <div class="footer">أثــر · رحلة المعرفة من الماضي إلى الحاضر</div>
 </main>
 
 <script>
+(function(){
+"use strict";
+
 const devices = [
-  {
-    name: "الهاتف الثابت",
-    icon: "☎️",
-    periods: [
-      {
-        year: "1870–1900",
-        emoji: "📞",
-        title: "الهاتف الأول",
-        description: "غيّر الهاتف طريقة التواصل، إذ أتاح نقل الصوت بين أشخاص في أماكن مختلفة.",
-        usage: "كانت الهواتف المبكرة تعتمد على خطوط الاتصال، وتطورت معها شبكات المقاسم الهاتفية.",
-        evolution: "تطورت أجهزة الاتصال من التصاميم الأولى إلى هواتف أكثر عملية وانتشارًا."
-      },
-      {
-        year: "1960–1980",
-        emoji: "☎️",
-        title: "الهاتف ذو القرص",
-        description: "اشتهر الهاتف ذو القرص الدائري الذي يحمل الأرقام، وأصبح جزءًا مألوفًا من المنازل.",
-        usage: "يدير المستخدم القرص إلى الرقم المطلوب، ثم ينتظر اتصال الخط بالطرف الآخر.",
-        evolution: "استُبدل القرص تدريجيًا بأزرار الأرقام التي جعلت طلب الاتصال أسرع."
-      },
-      {
-        year: "اليوم",
-        emoji: "📱",
-        title: "الاتصال الذكي",
-        description: "أصبحت الهواتف الحديثة تجمع المكالمات والرسائل والخدمات الرقمية.",
-        usage: "يمكن التواصل عبر المكالمات والتطبيقات والإنترنت من أماكن مختلفة.",
-        evolution: "انتقل التواصل من جهاز ثابت في المنزل إلى هاتف محمول متعدد الوظائف."
-      }
-    ]
-  },
-  {
-    name: "الهاتف المحمول",
-    icon: "📱",
-    periods: [
-      {
-        year: "1970–1980",
-        emoji: "📞",
-        title: "البدايات الأولى",
-        description: "ظهرت نماذج مبكرة للهواتف المحمولة، وكانت كبيرة وثقيلة مقارنة بالأجهزة الحالية.",
-        usage: "أتاحت إجراء المكالمات دون الحاجة إلى البقاء بجانب هاتف ثابت.",
-        evolution: "تطورت البطاريات والشبكات حتى أصبح الهاتف أصغر وأسهل حملًا."
-      },
-      {
-        year: "1990–2000",
-        emoji: "📟",
-        title: "هواتف الأزرار",
-        description: "انتشرت الهواتف المحمولة ذات الأزرار والشاشات الصغيرة.",
-        usage: "استُخدمت للمكالمات والرسائل النصية، وأضيفت إليها وظائف بسيطة.",
-        evolution: "أصبحت الشاشات أفضل، وأضيفت الكاميرات والاتصال بالإنترنت."
-      },
-      {
-        year: "2007–اليوم",
-        emoji: "📲",
-        title: "الهاتف الذكي",
-        description: "تحول الهاتف إلى جهاز رقمي يجمع كثيرًا من الخدمات في شاشة واحدة.",
-        usage: "نستخدمه للتواصل والتصوير والتعلم والتصفح وتشغيل التطبيقات.",
-        evolution: "انتقل الهاتف من جهاز للمكالمات إلى مساعد رقمي للعديد من المهام اليومية."
-      }
-    ]
-  },
-  {
-    name: "جهاز النداء",
-    icon: "📟",
-    periods: [
-      {
-        year: "1950–1970",
-        emoji: "📟",
-        title: "أجهزة النداء الأولى",
-        description: "استُخدمت أجهزة النداء لإعلام الشخص بأن أحدًا يريد التواصل معه.",
-        usage: "يصدر الجهاز تنبيهًا، فيعرف صاحبه أن هناك اتصالًا أو رسالة ينتظرها.",
-        evolution: "كانت وظيفته محدودة بالتنبيه، ثم ظهرت أجهزة تعرض أرقامًا ورسائل قصيرة."
-      },
-      {
-        year: "1980–1990",
-        emoji: "🔢",
-        title: "النداء الرقمي",
-        description: "انتشرت أجهزة صغيرة تعرض أرقامًا على شاشات رقمية.",
-        usage: "كان المستخدم يرى الرقم ثم يتصل من هاتف آخر.",
-        evolution: "حلّت الهواتف المحمولة والرسائل الفورية محل كثير من وظائف أجهزة النداء."
-      },
-      {
-        year: "اليوم",
-        emoji: "📲",
-        title: "التنبيهات الذكية",
-        description: "أصبحت التنبيهات جزءًا من الهواتف والأجهزة الذكية الحديثة.",
-        usage: "تصلنا إشعارات الرسائل والمكالمات والتطبيقات على الشاشة.",
-        evolution: "تطورت وسيلة التنبيه البسيطة إلى نظام متكامل للتواصل الفوري."
-      }
-    ]
-  },
-  {
-    name: "جهاز الفاكس",
-    icon: "📠",
-    periods: [
-      {
-        year: "1840–1900",
-        emoji: "📜",
-        title: "المحاولات الأولى",
-        description: "ظهرت محاولات مبكرة لإرسال نسخ من الرسومات والكتابات عبر خطوط الاتصال.",
-        usage: "اعتمدت الأجهزة المبكرة على تقنيات متخصصة لنقل صورة المستند.",
-        evolution: "مهّدت تلك الابتكارات لتطوير أجهزة الفاكس المكتبية."
-      },
-      {
-        year: "1970–1990",
-        emoji: "📠",
-        title: "الفاكس المكتبي",
-        description: "أصبح الفاكس وسيلة مهمة لإرسال المستندات بين المكاتب والمؤسسات.",
-        usage: "يوضع المستند في الجهاز، ثم يُرسل إلى جهاز آخر يطبع نسخة منه.",
-        evolution: "أصبح إرسال المستندات أسهل، ثم انتشر البريد الإلكتروني والملفات الرقمية."
-      },
-      {
-        year: "اليوم",
-        emoji: "📧",
-        title: "المستندات الرقمية",
-        description: "يمكن إرسال المستندات إلكترونيًا دون الحاجة إلى فاكس تقليدي.",
-        usage: "نمسح الأوراق ضوئيًا ونرسلها بالبريد الإلكتروني أو المنصات الرقمية.",
-        evolution: "أصبح تبادل المستندات أسرع، ويمكن إنجازه دون طباعة ورقة في كل مرة."
-      }
-    ]
-  },
-  {
-    name: "القرص المرن",
-    icon: "💾",
-    periods: [
-      {
-        year: "1970",
-        emoji: "💽",
-        title: "القرص المرن الكبير",
-        description: "استُخدمت الأقراص المرنة لحفظ بيانات الحواسيب ونقلها.",
-        usage: "يوضع القرص في محرك خاص لقراءة الملفات أو حفظها.",
-        evolution: "كانت سعة التخزين محدودة وحجم الأقراص كبيرًا مقارنة بالوسائل الحديثة."
-      },
-      {
-        year: "1980–1990",
-        emoji: "💾",
-        title: "الأقراص الأصغر",
-        description: "انتشر القرص المرن الأصغر حجمًا وأصبح شائعًا في استخدام الحواسيب.",
-        usage: "استُخدم لحفظ المستندات والبرامج ونقل الملفات بين الأجهزة.",
-        evolution: "حلّت محله تدريجيًا الأقراص المدمجة ووحدات التخزين ذات السعات الأكبر."
-      },
-      {
-        year: "اليوم",
-        emoji: "🔌",
-        title: "التخزين الحديث",
-        description: "تتوفر وحدات تخزين صغيرة وسريعة وخدمات لحفظ الملفات عبر الإنترنت.",
-        usage: "نحفظ الملفات في وحدات USB أو على الأجهزة أو في التخزين السحابي.",
-        evolution: "أصبحت سعات التخزين أكبر، وصار نقل الملفات ممكنًا عبر الإنترنت."
-      }
-    ]
-  },
-  {
-    name: "الكاميرا",
-    icon: "📷",
-    periods: [
-      {
-        year: "1880–1900",
-        emoji: "📸",
-        title: "الكاميرات القديمة",
-        description: "ساعدت الكاميرات على تسجيل اللحظات والصور باستخدام مواد حساسة للضوء.",
-        usage: "كان التصوير يحتاج إلى فيلم أو مادة تصوير ومعالجة لإظهار الصورة.",
-        evolution: "كان التصوير أبطأ ويتطلب خطوات أكثر من التصوير الرقمي الحديث."
-      },
-      {
-        year: "1970–1990",
-        emoji: "📷",
-        title: "كاميرا الأفلام",
-        description: "انتشرت الكاميرات المحمولة التي تستخدم أفلام التصوير.",
-        usage: "تُلتقط الصور على الفيلم، ثم يُحمّض للحصول على الصور المطبوعة.",
-        evolution: "ظهرت الكاميرات الرقمية التي أتاحت مشاهدة الصورة دون انتظار تحميض الفيلم."
-      },
-      {
-        year: "اليوم",
-        emoji: "🤳",
-        title: "التصوير الرقمي",
-        description: "أصبح التصوير متاحًا بالكاميرات الرقمية والهواتف الذكية.",
-        usage: "نلتقط الصورة ونشاهدها ونعدّلها ونشاركها مباشرة.",
-        evolution: "انتقل التصوير من الفيلم إلى الصور الرقمية التي يسهل حفظها ومشاركتها."
-      }
-    ]
-  },
-  {
-    name: "الطابعة",
-    icon: "🖨️",
-    periods: [
-      {
-        year: "1950–1970",
-        emoji: "📰",
-        title: "الطابعات المبكرة",
-        description: "استُخدمت الطابعات لإخراج نتائج الحواسيب على الورق.",
-        usage: "كانت بعض الطابعات كبيرة الحجم وتستخدم في المؤسسات ومراكز الحوسبة.",
-        evolution: "تطورت الطابعات لتصبح أصغر وأسهل في الاستخدام."
-      },
-      {
-        year: "1980–1990",
-        emoji: "🖨️",
-        title: "الطابعات المكتبية",
-        description: "انتشرت الطابعات المكتبية التي تتيح طباعة المستندات من الحاسوب.",
-        usage: "يوصل المستخدم الطابعة بالحاسوب لطباعة النصوص والتقارير.",
-        evolution: "ظهرت طابعات الليزر والنافثة للحبر بجودة أفضل."
-      },
-      {
-        year: "اليوم",
-        emoji: "📄",
-        title: "الطباعة الحديثة",
-        description: "تدعم الطابعات الحديثة الطباعة من الحاسوب والهاتف، وبعضها يعمل لاسلكيًا.",
-        usage: "يمكن طباعة النصوص والصور، ومسح المستندات ضوئيًا في الأجهزة متعددة الوظائف.",
-        evolution: "أصبحت الطباعة أكثر سهولة، مع إمكانات الاتصال اللاسلكي والنسخ والمسح."
-      }
-    ]
-  },
-  {
-    name: "التلفاز",
-    icon: "📺",
-    periods: [
-      {
-        year: "1950–1960",
-        emoji: "📺",
-        title: "التلفاز بالأبيض والأسود",
-        description: "أصبح التلفاز وسيلة مهمة لمتابعة الأخبار والبرامج في المنزل.",
-        usage: "كان المشاهد يتابع البث على شاشة بالأبيض والأسود.",
-        evolution: "تطورت جودة الصورة وأحجام الشاشات مع مرور الزمن."
-      },
-      {
-        year: "1970–1990",
-        emoji: "📺",
-        title: "التلفاز الملون",
-        description: "انتشرت أجهزة التلفاز الملون ذات الشاشات الأنبوبية.",
-        usage: "أتاحت مشاهدة البرامج والأفلام والأحداث بألوانها.",
-        evolution: "أصبحت الشاشات أنحف وأخف وزنًا وأعلى دقة."
-      },
-      {
-        year: "اليوم",
-        emoji: "📺",
-        title: "التلفاز الذكي",
-        description: "يجمع التلفاز الذكي بين مشاهدة القنوات واستخدام التطبيقات والإنترنت.",
-        usage: "يمكن مشاهدة الأفلام والبرامج ومحتوى البث عبر الإنترنت.",
-        evolution: "انتقل التلفاز من البث التقليدي إلى تجربة رقمية متصلة بالإنترنت."
-      }
-    ]
-  }
+{
+name:"الهاتف الثابت", icon:"☎️",
+periods:[
+{
+year:"1870–1900", emoji:"📞", title:"الهاتف الأول",
+description:"ظهرت الهواتف الأولى لتسمح بنقل الصوت بين أشخاص تفصل بينهم مسافات.",
+usage:"كانت المكالمات تتم عبر خطوط الاتصال، وساعدت المقاسم الهاتفية على توصيل المتصلين.",
+evolution:"تطورت الهواتف من أجهزة مبكرة بسيطة إلى أجهزة منزلية أكثر سهولة في الاستخدام."
+},
+{
+year:"1960–1980", emoji:"☎️", title:"الهاتف ذو القرص",
+description:"اشتهر الهاتف ذو القرص الدائري الذي يحمل الأرقام، وانتشر في المنازل والمكاتب.",
+usage:"كان المستخدم يدير القرص إلى الرقم المطلوب ثم ينتظر إتمام الاتصال.",
+evolution:"استُبدل القرص تدريجيًا بأزرار الأرقام، فأصبح إجراء المكالمات أسهل."
+},
+{
+year:"اليوم", emoji:"📱", title:"الاتصال الحديث",
+description:"أصبح التواصل متاحًا عبر الهواتف المحمولة والأجهزة الذكية.",
+usage:"نستخدم المكالمات والرسائل وتطبيقات التواصل للتحدث من أماكن مختلفة.",
+evolution:"انتقل التواصل من هاتف ثابت في مكان واحد إلى أجهزة محمولة تجمع خدمات متعددة."
+}
+]
+},
+{
+name:"الهاتف المحمول", icon:"📱",
+periods:[
+{
+year:"1970–1980", emoji:"📞", title:"البدايات الأولى",
+description:"ظهرت نماذج مبكرة للهاتف المحمول وكانت كبيرة الحجم مقارنة بالهواتف الحديثة.",
+usage:"أتاحت هذه الأجهزة إجراء المكالمات بعيدًا عن الهاتف الثابت.",
+evolution:"تطورت الشبكات والبطاريات والتصاميم، وأصبح الهاتف أصغر وأسهل حملًا."
+},
+{
+year:"1990–2000", emoji:"📟", title:"هواتف الأزرار",
+description:"انتشرت الهواتف المحمولة ذات الأزرار والشاشات الصغيرة.",
+usage:"استُخدمت للمكالمات والرسائل النصية، وظهرت فيها وظائف إضافية بسيطة.",
+evolution:"أضيفت الكاميرات وتحسنت الشاشات وبدأت خدمات الإنترنت بالانتشار."
+},
+{
+year:"2007–اليوم", emoji:"🤳", title:"الهاتف الذكي",
+description:"تحول الهاتف إلى جهاز رقمي يجمع الاتصال والتصوير والتطبيقات.",
+usage:"نستخدمه للتواصل والتعلم والتصوير والتصفح ومتابعة الخدمات الرقمية.",
+evolution:"أصبح الهاتف الذكي أداة متعددة الوظائف بدلًا من الاقتصار على المكالمات."
+}
+]
+},
+{
+name:"جهاز النداء", icon:"📟",
+periods:[
+{
+year:"1950–1970", emoji:"📟", title:"أجهزة النداء الأولى",
+description:"استُخدمت أجهزة النداء لتنبيه الأشخاص عند الحاجة إلى التواصل معهم.",
+usage:"يصدر الجهاز تنبيهًا يعرف منه صاحبه أن هناك من يحاول الوصول إليه.",
+evolution:"بدأت الأجهزة بوظيفة التنبيه، ثم تطورت لتعرض أرقامًا ورسائل قصيرة."
+},
+{
+year:"1980–1990", emoji:"🔢", title:"النداء الرقمي",
+description:"انتشرت أجهزة صغيرة تعرض أرقامًا على شاشة رقمية.",
+usage:"كان الشخص يرى رقم المتصل ثم يستخدم هاتفًا آخر لإجراء المكالمة.",
+evolution:"انتشرت الهواتف المحمولة والرسائل النصية، فحلّت محل كثير من وظائف النداء."
+},
+{
+year:"اليوم", emoji:"🔔", title:"التنبيهات الذكية",
+description:"أصبحت التنبيهات جزءًا من الهواتف والأجهزة الذكية.",
+usage:"تصل إشعارات المكالمات والرسائل والتطبيقات مباشرة إلى شاشة الجهاز.",
+evolution:"تطورت وسيلة التنبيه إلى نظام متكامل للإشعارات والتواصل الفوري."
+}
+]
+},
+{
+name:"جهاز الفاكس", icon:"📠",
+periods:[
+{
+year:"1840–1900", emoji:"📜", title:"المحاولات الأولى",
+description:"ظهرت ابتكارات مبكرة تهدف إلى إرسال نسخ من الرسومات والكتابات عبر المسافات.",
+usage:"اعتمدت الأجهزة الأولى على تقنيات متخصصة لنقل صور المستندات.",
+evolution:"مهّدت هذه الابتكارات لتطوير أجهزة الفاكس المستخدمة في المكاتب."
+},
+{
+year:"1970–1990", emoji:"📠", title:"الفاكس المكتبي",
+description:"أصبح الفاكس وسيلة معروفة لإرسال المستندات بين المؤسسات والمكاتب.",
+usage:"يوضع المستند في الجهاز ليُرسل إلى جهاز آخر يطبع نسخة منه.",
+evolution:"أصبح إرسال المستندات أسرع، ثم انتشر البريد الإلكتروني والملفات الرقمية."
+},
+{
+year:"اليوم", emoji:"📧", title:"المستندات الرقمية",
+description:"يمكن تبادل المستندات اليوم إلكترونيًا دون الحاجة إلى جهاز فاكس تقليدي.",
+usage:"نمسح الأوراق ضوئيًا ونرسلها بالبريد الإلكتروني أو المنصات الرقمية.",
+evolution:"أصبح تبادل الملفات أسهل وأسرع، ويمكن إنجازه دون طباعة الأوراق."
+}
+]
+},
+{
+name:"القرص المرن", icon:"💾",
+periods:[
+{
+year:"1970", emoji:"💽", title:"القرص المرن الكبير",
+description:"استُخدمت الأقراص المرنة لحفظ بيانات الحواسيب ونقلها.",
+usage:"يوضع القرص في محرك خاص لقراءة الملفات أو تخزينها.",
+evolution:"كانت الأقراص أكبر حجمًا وأقل سعة من وسائل التخزين الحديثة."
+},
+{
+year:"1980–1990", emoji:"💾", title:"القرص المرن الصغير",
+description:"انتشر القرص المرن الأصغر حجمًا، وأصبح شائعًا في استخدام الحواسيب.",
+usage:"استُخدم لحفظ المستندات والبرامج ونقل الملفات بين الأجهزة.",
+evolution:"حلّت محله تدريجيًا الأقراص المدمجة ووسائل التخزين الأعلى سعة."
+},
+{
+year:"اليوم", emoji:"🔌", title:"التخزين الحديث",
+description:"تتوفر وحدات تخزين صغيرة وسريعة وخدمات لحفظ الملفات عبر الإنترنت.",
+usage:"نستخدم وحدات USB والأقراص الحديثة والتخزين السحابي لحفظ الملفات.",
+evolution:"أصبحت السعات أكبر، وصار نقل الملفات ممكنًا بسهولة عبر الإنترنت."
+}
+]
+},
+{
+name:"الكاميرا", icon:"📷",
+periods:[
+{
+year:"1880–1900", emoji:"📸", title:"الكاميرات القديمة",
+description:"أتاحت الكاميرات تسجيل اللحظات والصور باستخدام مواد حساسة للضوء.",
+usage:"كان التصوير يعتمد على مواد تصوير تحتاج إلى المعالجة لإظهار الصورة.",
+evolution:"كانت عملية التصوير تحتاج إلى خطوات أطول من التصوير الرقمي الحديث."
+},
+{
+year:"1970–1990", emoji:"📷", title:"كاميرا الأفلام",
+description:"انتشرت الكاميرات المحمولة التي تستخدم أفلام التصوير.",
+usage:"تُلتقط الصور على الفيلم ثم يُعالج للحصول على الصور المطبوعة.",
+evolution:"ظهرت الكاميرات الرقمية التي سمحت بمشاهدة الصور دون انتظار تحميض الفيلم."
+},
+{
+year:"اليوم", emoji:"🤳", title:"التصوير الرقمي",
+description:"أصبح التصوير متاحًا عبر الكاميرات الرقمية والهواتف الذكية.",
+usage:"نلتقط الصور ونشاهدها ونعدّلها ونشاركها مباشرة.",
+evolution:"انتقل التصوير من الأفلام إلى الصور الرقمية سهلة الحفظ والمشاركة."
+}
+]
+},
+{
+name:"الطابعة", icon:"🖨️",
+periods:[
+{
+year:"1950–1970", emoji:"📰", title:"الطابعات المبكرة",
+description:"استُخدمت الطابعات لإخراج نتائج الحواسيب والمعلومات على الورق.",
+usage:"كانت بعض الطابعات كبيرة الحجم وتُستخدم في المؤسسات ومراكز الحوسبة.",
+evolution:"تطورت الطابعات لتصبح أصغر حجمًا وأكثر ملاءمة للمكاتب."
+},
+{
+year:"1980–1990", emoji:"🖨️", title:"الطابعات المكتبية",
+description:"انتشرت الطابعات التي تسمح بطباعة المستندات مباشرة من الحاسوب.",
+usage:"يوصل المستخدم الطابعة بالحاسوب لطباعة النصوص والتقارير.",
+evolution:"تحسنت جودة الطباعة وظهرت تقنيات الليزر والطباعة النافثة للحبر."
+},
+{
+year:"اليوم", emoji:"📄", title:"الطباعة الحديثة",
+description:"تدعم الطابعات الحديثة الطباعة من الحاسوب والهاتف، وبعضها يعمل لاسلكيًا.",
+usage:"نطبع النصوص والصور، ويمكن مسح المستندات ضوئيًا في الأجهزة متعددة الوظائف.",
+evolution:"أصبحت الطباعة أكثر سهولة مع الاتصال اللاسلكي والنسخ والمسح الضوئي."
+}
+]
+},
+{
+name:"التلفاز", icon:"📺",
+periods:[
+{
+year:"1950–1960", emoji:"📺", title:"التلفاز بالأبيض والأسود",
+description:"أصبح التلفاز وسيلة مهمة لمتابعة الأخبار والبرامج في المنازل.",
+usage:"كان المشاهد يتابع البث على شاشة تعرض الصور بالأبيض والأسود.",
+evolution:"تطورت تقنيات العرض حتى ظهرت الشاشات الملونة."
+},
+{
+year:"1970–1990", emoji:"📺", title:"التلفاز الملون",
+description:"انتشرت أجهزة التلفاز الملون ذات الشاشات الأنبوبية.",
+usage:"أتاحت مشاهدة البرامج والأفلام والأحداث بألوانها.",
+evolution:"تطورت الشاشات لتصبح أنحف وأخف وزنًا وأعلى دقة."
+},
+{
+year:"اليوم", emoji:"📺", title:"التلفاز الذكي",
+description:"يجمع التلفاز الذكي بين مشاهدة القنوات واستخدام التطبيقات والإنترنت.",
+usage:"يمكن مشاهدة البرامج والأفلام ومحتوى البث عبر الإنترنت.",
+evolution:"انتقل التلفاز من البث التقليدي إلى تجربة رقمية متصلة بالإنترنت."
+}
+]
+}
 ];
 
 const $ = id => document.getElementById(id);
-let currentDevice = 0;
-let currentPeriod = 0;
+let deviceIndex = 0;
+let periodIndex = 0;
 
-function startJourney() {
-  $("hero").classList.add("hidden");
-  $("siteHeader").classList.remove("hidden");
+function openJourney(){
+  $("home").classList.add("hidden");
+  $("topbar").classList.remove("hidden");
   $("app").classList.remove("hidden");
   renderDevices();
-  selectDevice(0);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  chooseDevice(0);
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function renderDevices() {
+function renderDevices(){
   const grid = $("deviceGrid");
-  grid.innerHTML = "";
+  grid.replaceChildren();
 
-  devices.forEach((device, index) => {
+  devices.forEach((device,index)=>{
     const button = document.createElement("button");
-    button.className = "device-card";
     button.type = "button";
+    button.className = "device-card";
+    button.setAttribute("aria-label","عرض "+device.name);
 
     const icon = document.createElement("span");
     icon.className = "device-icon";
@@ -619,70 +542,117 @@ function renderDevices() {
 
     const hint = document.createElement("span");
     hint.className = "device-hint";
-    hint.textContent = "اكتشفي تطوّره ←";
+    hint.textContent = "اكتشفي الحكاية ←";
 
-    button.append(icon, name, hint);
-    button.addEventListener("click", () => {
-      selectDevice(index);
-      $("storyCard").scrollIntoView({ behavior: "smooth", block: "start" });
+    button.append(icon,name,hint);
+    button.addEventListener("click",()=>{
+      chooseDevice(index);
+      $("story").scrollIntoView({behavior:"smooth",block:"start"});
     });
     grid.appendChild(button);
   });
 }
 
-function selectDevice(index) {
-  currentDevice = index;
-  currentPeriod = 0;
-
-  document.querySelectorAll(".device-card").forEach((card, i) => {
-    card.classList.toggle("active", i === index);
+function chooseDevice(index){
+  deviceIndex = index;
+  periodIndex = 0;
+  document.querySelectorAll(".device-card").forEach((button,i)=>{
+    button.classList.toggle("active",i===index);
   });
-
   $("deviceTitle").textContent = devices[index].name;
-  renderTimeline();
+  renderPeriods();
   renderPeriod();
 }
 
-function renderTimeline() {
-  const timeline = $("timeline");
-  timeline.innerHTML = "";
+function renderPeriods(){
+  const holder = $("periods");
+  holder.replaceChildren();
 
-  devices[currentDevice].periods.forEach((period, index) => {
+  devices[deviceIndex].periods.forEach((period,index)=>{
     const button = document.createElement("button");
-    button.className = "period-button" + (index === currentPeriod ? " active" : "");
     button.type = "button";
+    button.className = "period-button"+(index===periodIndex?" active":"");
 
     const year = document.createElement("strong");
     year.textContent = period.year;
 
     const label = document.createElement("span");
-    label.textContent = ["البدايات", "مرحلة التطور", "الوقت الحاضر"][index];
+    label.textContent = ["البدايات","مرحلة التطور","الوقت الحاضر"][index];
 
-    button.append(year, label);
-    button.addEventListener("click", () => {
-      currentPeriod = index;
-      renderTimeline();
+    button.append(year,label);
+    button.addEventListener("click",()=>{
+      periodIndex = index;
+      renderPeriods();
       renderPeriod();
     });
-
-    timeline.appendChild(button);
+    holder.appendChild(button);
   });
 }
 
-function renderPeriod() {
-  const device = devices[currentDevice];
-  const period = device.periods[currentPeriod];
+function renderPeriod(){
+  const device = devices[deviceIndex];
+  const period = device.periods[periodIndex];
 
-  $("visualEmoji").textContent = period.emoji;
-  $("visualPeriod").textContent = period.year;
-  $("visualCaption").textContent = device.name + " — " + period.title;
+  $("emoji").textContent = period.emoji;
+  $("year").textContent = period.year;
+  $("caption").textContent = device.name+" — "+period.title;
   $("periodTitle").textContent = period.title;
   $("description").textContent = period.description;
   $("usage").textContent = period.usage;
   $("evolution").textContent = period.evolution;
 
-  $("previousButton").disabled = currentPeriod === 0;
-  $("nextButton").disabled = currentPeriod === device.periods.length - 1;
+  $("prevBtn").disabled = periodIndex===0;
+  $("nextBtn").disabled = periodIndex===device.periods.length-1;
+  $("progressText").textContent = "الجهاز "+(deviceIndex+1)+" من "+devices.length;
+  $("periodText").textContent = "الفترة "+(periodIndex+1)+" من "+device.periods.length;
+  $("progressFill").style.width = (((deviceIndex*3+periodIndex+1)/(devices.length*3))*100)+"%";
 }
 
-$("startButton").addEventListener("
+$("startBtn").addEventListener("click",openJourney);
+
+$("homeBtn").addEventListener("click",()=>{
+  $("app").classList.add("hidden");
+  $("topbar").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+$("prevBtn").addEventListener("click",()=>{
+  if(periodIndex>0){
+    periodIndex--;
+  }else if(deviceIndex>0){
+    deviceIndex--;
+    periodIndex=devices[deviceIndex].periods.length-1;
+    document.querySelectorAll(".device-card").forEach((button,i)=>{
+      button.classList.toggle("active",i===deviceIndex);
+    });
+    $("deviceTitle").textContent=devices[deviceIndex].name;
+  }
+  renderPeriods();
+  renderPeriod();
+});
+
+$("nextBtn").addEventListener("click",()=>{
+  const current = devices[deviceIndex];
+
+  if(periodIndex<current.periods.length-1){
+    periodIndex++;
+  }else if(deviceIndex<devices.length-1){
+    deviceIndex++;
+    periodIndex=0;
+    document.querySelectorAll(".device-card").forEach((button,i)=>{
+      button.classList.toggle("active",i===deviceIndex);
+    });
+    $("deviceTitle").textContent=devices[deviceIndex].name;
+  }
+
+  renderPeriods();
+  renderPeriod();
+});
+
+})();
+</script>
+
+</body>
+  </html>
+  
